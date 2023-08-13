@@ -1,8 +1,10 @@
 
 <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"] . "?" . $_SERVER["QUERY_STRING"]); ?>" enctype="multipart/form-data">
 
-    <input type="hidden" id="workshopID" name="workshopID" value=" <?php echo $workshopID; ?> ">
-    <input id="workshopImageOld" name="workshopImageOld" value="<?php echo $row['workshopImage']; ?>">
+    <input type="hidden" id="workshopID" name="workshopID" value="<?php echo $workshopID; ?> ">
+    
+    <!-- BUG FIX - retain same DB img record if no new image is uploaded (avoid blank insert/overwrite) -->
+    <input type="hidden" id="workshopImageOld" name="workshopImageOld" value="<?php echo $row['workshopImage']; ?>">
 
     <label>Title :</label>
       <input type="text" id="workshopTitle" name="workshopTitle" value="<?php echo $row['workshopTitle'] ?? maintain_state($workshopTitle); ?>" />
@@ -15,7 +17,7 @@
     <span class="error"><?php echo $errors['workshopDescription'] ?? '' ?></span>
 
     <label>Select image to upload: </label>
-      <span><?php echo $row['workshopImage'] ?? ''; ?></span>
+      <span><?php echo '<strong>Current image : </strong>' . $row['workshopImage'] ?? ''; ?></span>
       <input type="file" id="workshopImage" name="workshopImage">
       <p><i> optimise 16:9 </i></p>
     <span class="error"><?php echo $errors['workshopImage'] ?? '' ?></span>

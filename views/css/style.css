@@ -63,7 +63,7 @@ font-family: 'Yeseva One', cursive; */
     text-align: center;
     transition: 0.3s;
     box-shadow: 0 10px 27px rgba(0, 0, 0, 0.05);
-    border: dotted 2px red;
+    /* border: dotted 2px red; */
   }
   .nav-menu.active {
     left: 0;
@@ -93,7 +93,7 @@ font-family: 'Yeseva One', cursive; */
 
 * {
   box-sizing: border-box;
-  border: solid 2px yellow;
+  /* border: solid 2px yellow; */
 }
 html {
   font-size: 16px; /* Root Element = 1rem */
