@@ -1,0 +1,58 @@
+<?php
+working but bugs
+
+// -------file upload checks ------//
+// Check if image file is a actual image or fake image
+//file upload script
+$target_dir = "../view/images/";
+$target_file = $target_dir . basename($_FILES["workshopImage"]["name"]);
+$uploadOk = 1;
+$imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
+
+
+  $check = getimagesize($_FILES["workshopImage"]["tmp_name"]);
+  if($check !== false) {
+    echo "File is an image - " . $check["mime"] . ".";
+    $uploadOk = 1;
+  } else {
+    $workshopImageErr = "File is not an image.";
+    $uploadOk = 0;
+  }
+
+
+// Check if file already exists
+if (file_exists($target_file)) {
+  $workshopImageErr = "Sorry, file already exists.";
+  $uploadOk = 0;
+}
+
+// Check file size
+if ($_FILES["workshopImage"]["size"] > 500000) {
+  $workshopImageErr = "Sorry, your file is too large.";
+  $uploadOk = 0;
+}
+
+// Allow certain file formats
+if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
+&& $imageFileType != "gif" ) {
+  $workshopImageErr = "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
+  $uploadOk = 0;
+}
+
+// Check if $uploadOk is set to 0 by an error
+if ($uploadOk == 0) {
+  $workshopImageErr = "Sorry, your file was not uploaded.";
+// if everything is ok, try to upload file
+} else {
+  if (move_uploaded_file($_FILES["workshopImage"]["tmp_name"], $target_file)) {
+    $workshopImageErr = "The file ". htmlspecialchars( basename( $_FILES["workshopImage"]["name"])). " has been uploaded.";
+  } else {
+    $workshopImageErr = "Sorry, there was an error uploading your file.";
+  }
+}
+
+    $workshopImage = $_FILES["workshopImage"]["name"]; //save the name of file to database table
+
+// -------END file upload checks ------//
+
+?>
