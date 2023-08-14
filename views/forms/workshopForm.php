@@ -17,7 +17,10 @@
     <span class="error"><?php echo $errors['workshopDescription'] ?? '' ?></span>
 
     <label>Select image to upload: </label>
-      <span><?php echo '<strong>Current image : </strong>' . $row['workshopImage'] ?? ''; ?></span>
+      <span>
+        <!-- edit form only - notify user of image file currently in use -->
+        <?php echo (!empty($row['workshopImage'])) ? '<strong>Current Image : </strong>' . $row['workshopImage'] : '' ; ?>
+      </span>
       <input type="file" id="workshopImage" name="workshopImage">
       <p><i> optimise 16:9 </i></p>
     <span class="error"><?php echo $errors['workshopImage'] ?? '' ?></span>
